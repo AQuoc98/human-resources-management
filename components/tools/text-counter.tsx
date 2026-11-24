@@ -1,10 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 
 export function TextCounter() {
   const [text, setText] = useState("");
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    // A browser may restore a whole page from its back/forward cache.
+    const clearText = () => {
+      if (textareaRef.current) textareaRef.current.value = "";
+      setText("");
+    };
+    window.addEventListener("pagehide", clearText);
+    return () => {
+      window.removeEventListener("pagehide", clearText);
+      // Next.js may keep a hidden route's component state for Back navigation.
+      clearText();
+    };
+  }, []);
   const words = text.trim() ? text.trim().split(/\s+/u).length : 0;
   const characters = Array.from(text).length;
 
@@ -20,7 +35,7 @@ export function TextCounter() {
       </div>
       <div className="space-y-2">
         <label htmlFor="counter-text" className="text-sm font-medium">Your text</label>
-        <Textarea id="counter-text" value={text} onChange={(event) => setText(event.target.value)} placeholder="Type or paste your text here…" className="min-h-64 resize-y bg-card p-4 text-base" />
+        <Textarea ref={textareaRef} id="counter-text" autoComplete="off" value={text} onChange={(event) => setText(event.target.value)} placeholder="Type or paste your text here…" className="min-h-64 resize-y bg-card p-4 text-base" />
         <p className="text-sm text-muted-foreground">Your text stays in this browser and is cleared when you leave the page.</p>
       </div>
     </div>
