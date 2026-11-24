@@ -1,16 +1,8 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import { tools } from "@/lib/tools";
+import type { Tool } from "@/lib/tools";
 
-export function generateStaticParams() {
-  return tools.map(({ slug }) => ({ slug }));
-}
-
-export default async function ToolPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const tool = tools.find((item) => item.slug === slug);
-  if (!tool) notFound();
+export function ToolPage({ tool }: { tool: Tool }) {
   const Icon = tool.icon;
   const ToolComponent = tool.component;
 

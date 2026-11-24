@@ -10,13 +10,12 @@ export type Tool = {
   component: ComponentType;
 };
 
-// Add a tool here to expose it on the dashboard and at /tools/<slug>.
-export const tools: Tool[] = [
-  {
-    slug: "text-counter",
-    name: "Text counter",
-    description: "Count words and characters as you write or edit.",
-    icon: FileText,
-    component: TextCounter,
-  },
-];
+export const textCounterTool: Tool = {
+  slug: "text-counter",
+  name: "Text counter",
+  description: "Count words and characters as you write or edit.",
+  icon: FileText,
+  component: TextCounter,
+};
+
+export const tools: Tool[] = [textCounterTool];
