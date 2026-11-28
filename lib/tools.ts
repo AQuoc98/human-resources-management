@@ -1,5 +1,4 @@
-import { FileText, ContactRound, type LucideIcon } from "lucide-react";
-import { CitizenIdExtractor } from "@/components/tools/citizen-id-extractor";
+import { FileText, type LucideIcon } from "lucide-react";
 import { TextCounter } from "@/components/tools/text-counter";
 import type { ComponentType } from "react";
 
@@ -19,6 +18,4 @@ export const textCounterTool: Tool = {
   component: TextCounter,
 };
 
-export const citizenIdTool: Tool = { slug: "citizen-id", name: "Citizen ID information extractor", description: "Extract and review ID details locally in your browser.", icon: ContactRound, component: CitizenIdExtractor };
-
-export const tools: Tool[] = [textCounterTool, citizenIdTool];
+export const tools: Tool[] = [textCounterTool];
